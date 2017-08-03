@@ -10,11 +10,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to Spotishare</h2>
         </div>
-        <iframe src="https://open.spotify.com/embed?uri=spotify%3Atrack%3A33Q6ldVXuJyQmqs8BmAa0k"
+        <iframe src="https://open.spotify.com/embed?uri=spotify%3Atrack%3A0WTQ3OVvyuD49BfO99Q6y7"
                 width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload. TEST
-        </p>
       </div>
     );
   }
