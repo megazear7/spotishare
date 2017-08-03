@@ -6,6 +6,13 @@ To run in development:
 To deploy to production:
 - git push heroku master
 
+### Notes
+
+- Playlist embed example
+```
+<iframe src="https://open.spotify.com/embed/user/megazear7/playlist/4zHC80VOQ1McuqkapT195D" width="300" height="380" frameBorder="0" allowTransparency="true"></iframe>
+```
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
