@@ -8,16 +8,29 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { };
+    this.updateSearchText = this.updateSearchText.bind(this);
+    this.search = this.search.bind(this);
+
+    this.state = {searchText: ''};
+
+    var accessToken = getCookie("spotify_access_token");
+    if (typeof accessToken !== "undefined") {
+      this.state.accessToken = accessToken;
+    }
+
+    var userUri = getCookie("spotify_user_uri");
+    if (typeof userUri !== "undefined") {
+      this.state.userUri = userUri;
+    }
   }
 
   componentDidMount() {
     var self = this;
-    var accessToken = getCookie("access_token");
-    var userUri = getCookie("spotify_user_uri");
+    var accessToken = this.state.accessToken;
+    var userUri = this.state.userUri;
     var hash = window.location.hash;
 
-    if (typeof accessToken === "undefined" && hash.length > 0) {
+    if (typeof this.state.accessToken === "undefined" && hash.length > 0) {
       var hashArr = window.location.hash.substr(1).split("&").map(function(pair) {
         return { key: pair.split("=")[0], val: pair.split("=")[1] };
       });
@@ -29,6 +42,7 @@ class App extends Component {
 
       createCookie("spotify_access_token", hashParams["access_token"], hashParams["expires_in"]);
       accessToken = hashParams["access_token"];
+      this.setState({accessToken: accessToken});
       window.location.hash = "";
     }
 
@@ -47,7 +61,31 @@ class App extends Component {
         }
       });
     }
+  }
+  
+  updateSearchText(event) {
+    console.log("updateSearchText");
+    this.setState({searchText: event.target.value});
+  }
 
+  search() {
+    var self = this;
+    console.log("search: " + self.state.searchText);
+    $.ajax({
+      url: 'https://api.spotify.com/v1/search',
+      data: {
+        q: self.state.searchText,
+        type: "track",
+        limit: 5
+      },
+      headers: {
+        'Authorization': 'Bearer ' + self.state.accessToken
+      },
+      success: function(response) {
+        console.log(response.tracks.items);
+        self.setState({searchTracks: response.tracks.items});
+      }
+    });
   }
 
   render() {
@@ -70,6 +108,15 @@ class App extends Component {
           <div className="playing">
             <iframe src="https://open.spotify.com/embed?uri=spotify%3Atrack%3A0WTQ3OVvyuD49BfO99Q6y7"
                     width="300" height="80" frameBorder="0" allowTransparency="true"></iframe>
+            {this.state.userUri &&
+              <div>
+                <input type="text" onChange={this.updateSearchText}></input>
+                <button type="button" onClick={this.search}>Search</button>
+              </div>}
+            {this.state.searchTracks &&
+              this.state.searchTracks.map(function(track) {
+                return <p>{track.name}</p>;
+              })}
           </div>
       </div>
     );
