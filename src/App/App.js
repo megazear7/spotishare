@@ -11,17 +11,19 @@ class App extends Component {
     this.updateSearchText = this.updateSearchText.bind(this);
     this.search = this.search.bind(this);
 
-    this.state = {searchText: ''};
+    var initState = {searchText: ''};
 
     var accessToken = getCookie("spotify_access_token");
     if (typeof accessToken !== "undefined") {
-      this.state.accessToken = accessToken;
+      initState.accessToken = accessToken;
     }
 
     var userUri = getCookie("spotify_user_uri");
     if (typeof userUri !== "undefined") {
-      this.state.userUri = userUri;
+      initState.userUri = userUri;
     }
+
+    this.state = initState;
   }
 
   componentDidMount() {
@@ -94,7 +96,7 @@ class App extends Component {
           <div className="user">
             {this.state.userUri &&
               <iframe src={"https://embed.spotify.com/follow/1/?uri="+this.state.userUri+"&size=detail&theme=light"}
-                      width="300" height="56" scrolling="no" frameBorder="0"  allowTransparency="true"
+                      width="300" height="56" scrolling="no" frameBorder="0"  allowTransparency="true" title="user"
                       style={{border: "none", overflow: "hidden"}}></iframe>}
             {! this.state.userUri &&
               <a href="https://accounts.spotify.com/authorize?client_id=4de0ba73539449b4a723fcd91ae34fe0&response_type=token&redirect_uri=http://localhost:3000">
@@ -104,7 +106,7 @@ class App extends Component {
         </div>
           <div className="playing">
             <iframe src="https://open.spotify.com/embed?uri=spotify%3Atrack%3A0WTQ3OVvyuD49BfO99Q6y7"
-                    width="300" height="80" frameBorder="0" allowTransparency="true"></iframe>
+                    width="300" height="80" frameBorder="0" allowTransparency="true" title="song"></iframe>
             {this.state.userUri &&
               <div>
                 <input type="text" onChange={this.updateSearchText}></input>
