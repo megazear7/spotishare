@@ -89,34 +89,37 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Spotishare</h2>
-          <div className="user">
-            {this.state.userUri &&
-              <iframe src={"https://embed.spotify.com/follow/1/?uri="+this.state.userUri+"&size=detail&theme=light"}
-                      width="300" height="56" scrolling="no" frameBorder="0"  allowTransparency="true" title="user"
-                      style={{border: "none", overflow: "hidden"}}></iframe>}
-            {! this.state.userUri &&
-              <a href="https://accounts.spotify.com/authorize?client_id=4de0ba73539449b4a723fcd91ae34fe0&response_type=token&redirect_uri=http://localhost:3000">
-                Login with Spotify
-              </a>}
-          </div>
+      <div className="app">
+        <div className="header">
+          <img src={logo} className="app-logo" alt="logo" />
+          <h2>Spotishare</h2>
         </div>
-          <div className="playing">
-            <iframe src="https://open.spotify.com/embed?uri=spotify%3Atrack%3A0WTQ3OVvyuD49BfO99Q6y7"
-                    width="300" height="80" frameBorder="0" allowTransparency="true" title="song"></iframe>
-            {this.state.userUri &&
-              <div>
-                <input type="text" onChange={this.updateSearchText}></input>
-                <button type="button" onClick={this.search}>Search</button>
-              </div>}
-            {this.state.searchTracks &&
-              this.state.searchTracks.map(function(track) {
-                return <p key={track.name}>{track.name}</p>;
-              })}
-          </div>
+        <div className="user">
+          {this.state.userUri &&
+            <iframe src={"https://embed.spotify.com/follow/1/?uri="+this.state.userUri+"&size=detail&theme=light"}
+                    width="250" height="56" scrolling="no" frameBorder="0"  allowTransparency="true" title="user"
+                    style={{border: "none", overflow: "hidden"}}></iframe>}
+          {! this.state.userUri &&
+            <a href="https://accounts.spotify.com/authorize?client_id=4de0ba73539449b4a723fcd91ae34fe0&response_type=token&redirect_uri=http://localhost:3000">
+              Login with Spotify
+            </a>}
+        </div>
+        <div className="playing">
+          <iframe src="https://open.spotify.com/embed?uri=spotify%3Atrack%3A0WTQ3OVvyuD49BfO99Q6y7"
+                  width="300" height="80" frameBorder="0" allowTransparency="true" title="song"></iframe>
+          {this.state.userUri &&
+            <div>
+              <input type="text" onChange={this.updateSearchText}></input>
+              <button type="button" onClick={this.search}>Search</button>
+            </div>}
+          {this.state.searchTracks &&
+            this.state.searchTracks.map(function(track) {
+              return <p key={track.name}>{track.name}</p>;
+            })}
+        </div>
+        <div className="footer">
+          Spotishare version 0.1
+        </div>
       </div>
     );
   }
