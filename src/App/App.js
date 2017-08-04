@@ -64,13 +64,11 @@ class App extends Component {
   }
   
   updateSearchText(event) {
-    console.log("updateSearchText");
     this.setState({searchText: event.target.value});
   }
 
   search() {
     var self = this;
-    console.log("search: " + self.state.searchText);
     $.ajax({
       url: 'https://api.spotify.com/v1/search',
       data: {
@@ -82,7 +80,6 @@ class App extends Component {
         'Authorization': 'Bearer ' + self.state.accessToken
       },
       success: function(response) {
-        console.log(response.tracks.items);
         self.setState({searchTracks: response.tracks.items});
       }
     });
@@ -115,7 +112,7 @@ class App extends Component {
               </div>}
             {this.state.searchTracks &&
               this.state.searchTracks.map(function(track) {
-                return <p>{track.name}</p>;
+                return <p key={track.name}>{track.name}</p>;
               })}
           </div>
       </div>
