@@ -60,6 +60,9 @@ class App extends Component {
           userUri = response.uri
           self.setState({userUri: userUri});
           createCookie("spotify_user_uri", userUri, "3600");
+        },
+        failure: function() {
+          console.log("HELLO");
         }
       });
     }
