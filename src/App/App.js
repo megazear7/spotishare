@@ -91,6 +91,8 @@ class App extends Component {
   }
 
   render() {
+    var thisUrl = window.location.protocol + "//" + window.location.host;
+
     return (
       <div className="app">
         <div className="header">
@@ -103,7 +105,7 @@ class App extends Component {
                     width="250" height="56" scrolling="no" frameBorder="0"  allowTransparency="true" title="user"
                     style={{border: "none", overflow: "hidden"}}></iframe>}
           {! this.state.userUri &&
-            <a href="https://accounts.spotify.com/authorize?client_id=4de0ba73539449b4a723fcd91ae34fe0&response_type=token&redirect_uri=http://localhost:3000">
+            <a href={"https://accounts.spotify.com/authorize?client_id=4de0ba73539449b4a723fcd91ae34fe0&response_type=token&redirect_uri="+thisUrl}>
               Login with Spotify
             </a>}
         </div>
