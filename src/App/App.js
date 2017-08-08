@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './App.css';
-import { createCookie, getCookie } from '../utils.js';
+import { createCookie, getCookie, findGetParameter } from '../utils.js';
 import $ from "jquery";
 
 class App extends Component {
@@ -13,7 +13,12 @@ class App extends Component {
 
     var initState = {searchText: ''};
 
-    var accessToken = getCookie("spotify_access_token");
+    var refreshToken = findGetParameter("refresh_token") || getCookie("spotify_refresh_token");
+    if (typeof refreshToken !== "undefined") {
+      initState.refreshToken = refreshToken;
+    }
+
+    var accessToken = findGetParameter("access_token") || getCookie("spotify_access_token");
     if (typeof accessToken !== "undefined") {
       initState.accessToken = accessToken;
     }
@@ -28,42 +33,33 @@ class App extends Component {
 
   componentDidMount() {
     var self = this;
+    var refreshToken = this.state.refreshToken;
     var accessToken = this.state.accessToken;
     var userUri = this.state.userUri;
-    var hash = window.location.hash;
 
-    if (typeof this.state.accessToken === "undefined" && hash.length > 0) {
-      var hashArr = window.location.hash.substr(1).split("&").map(function(pair) {
-        return { key: pair.split("=")[0], val: pair.split("=")[1] };
+    if (refreshToken) {
+      $.get({
+        url: 'http://localhost:8888/refresh_token',
+        data: {
+          refresh_token: refreshToken
+        },
+        success: function(response) {
+          console.log("Token refreshed");
+        }
       });
-
-      var hashParams = { };
-      hashArr.forEach(function(param) {
-        hashParams[param.key] = param.val;
-      });
-
-      createCookie("spotify_access_token", hashParams["access_token"], hashParams["expires_in"]);
-      accessToken = hashParams["access_token"];
-      this.setState({accessToken: accessToken});
-      window.location.hash = "";
     }
-
-    if (typeof userUri !== "undefined") {
-      self.setState({userUri: userUri});
-    } else if (typeof accessToken !== "undefined") {
+    
+    if (accessToken && ! userUri) {
       $.ajax({
         url: 'https://api.spotify.com/v1/me',
         headers: {
           'Authorization': 'Bearer ' + accessToken
         },
         success: function(response) {
-          userUri = response.uri
-          self.setState({userUri: userUri});
-          createCookie("spotify_user_uri", userUri, "3600");
+          console.log(response);
+          self.setState({spotify_user_uri: response.uri});
+          createCookie("spotify_user_uri", response.uri);
         },
-        failure: function() {
-          console.log("HELLO");
-        }
       });
     }
   }
@@ -105,7 +101,7 @@ class App extends Component {
                     width="250" height="56" scrolling="no" frameBorder="0"  allowTransparency="true" title="user"
                     style={{border: "none", overflow: "hidden"}}></iframe>}
           {! this.state.userUri &&
-            <a href={"https://accounts.spotify.com/authorize?client_id=4de0ba73539449b4a723fcd91ae34fe0&response_type=token&redirect_uri="+thisUrl}>
+            <a href={"http://localhost:8888/login"}>
               Login with Spotify
             </a>}
         </div>
