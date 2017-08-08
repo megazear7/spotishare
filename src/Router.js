@@ -6,13 +6,17 @@ import {
 } from 'react-router-dom'
 import App from './App/App';
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div>Home Page. This is where users will create their own music</div>
-    );
-  }
-};
+
+// This merely wraps the App component with the station name.
+const RoutedApp  = ({ match }) => (
+  <App station={match.params.id} />
+);
+
+// For clarity I have followed the same convention. This wraps the App with no
+// station name.
+const UnroutedApp  = ( ) => (
+  <App />
+);
 
 const Routes = () => (
   <Router>
@@ -25,14 +29,10 @@ const Routes = () => (
         <li><Link to="/other-music">Other Music</Link></li>
       </ul>
 
-      <Route path="/:id" component={Station}/>
-      <Route path="/" component={Home}/>
+      <Route path="/:id" component={RoutedApp}/>
+      <Route exact path="/" component={UnroutedApp}/>
     </div>
   </Router>
-)
-
-const Station = ({ match }) => (
-  <App station={match.params.id} />
-)
+);
 
 export default Routes

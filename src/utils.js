@@ -9,7 +9,7 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-function findGetParameter(parameterName) {
+function findGetParam(paramName) {
   var result = null,
       tmp = [];
   window.location.search
@@ -17,10 +17,25 @@ function findGetParameter(parameterName) {
     .split("&")
     .forEach(function (item) {
       tmp = item.split("=");
-      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+      if (tmp[0] === paramName) result = decodeURIComponent(tmp[1]);
     });
   return result;
 }
+
+var findHashParam = function(key) {
+  if (typeof key !== 'string') {
+    key = '';
+  }
+    
+  var keyAndHash = window.location.hash.match(new RegExp(key + '=([^&]*)'));
+  var value = '';
+    
+  if (keyAndHash) {
+    value = keyAndHash[1];
+  }
+   
+  return value;
+};
 
 function apiUrl(path) {
   if (process.env.NODE_ENV === "development") {
@@ -31,4 +46,12 @@ function apiUrl(path) {
   return ;
 }
 
-export { createCookie, getCookie, findGetParameter, apiUrl };
+function getAccessToken() {
+  return findHashParam("access_token") || getCookie("spotify_access_token");
+}
+
+function getRefreshToken() {
+  return findHashParam("refresh_token") || getCookie("spotify_refresh_token");
+}
+
+export { createCookie, getCookie, findGetParam, apiUrl, getAccessToken, getRefreshToken, findHashParam };
