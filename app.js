@@ -157,7 +157,7 @@ app.get('/refresh_token', function(req, res) {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.get('/', function (req, res) {
+  app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 }
