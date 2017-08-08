@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import { getCookie, apiUrl } from '../utils.js';
-import { SpotAPI } from '../api.js';
+import SpotAPI from '../SpotAPI.js';
 import './App.css';
 import Station from '../Station/Station.js';
 import Home from '../Home/Home.js';

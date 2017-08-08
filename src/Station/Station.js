@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Station.css';
-import { SpotAPI } from '../api.js';
+import SpotAPI from '../SpotAPI.js';
 
 class Station extends Component {
   constructor(props) {

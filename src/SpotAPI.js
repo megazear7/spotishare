@@ -72,4 +72,4 @@ var SpotAPI = {
 
 };
 
-export { SpotAPI };
+export default SpotAPI;
