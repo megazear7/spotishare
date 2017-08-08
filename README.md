@@ -7,7 +7,7 @@ To deploy to production:
 - git push heroku master
 
 To run in production (this hasn't been tested yet):
-- npm run prod
+- npm run start
 
 ### Notes
 
