@@ -4,10 +4,13 @@ To run in development:
 - npm run dev
 
 To deploy to production:
+- npm run build
+- git add .
+- git commit -m "updated prod build"
 - git push heroku master
 
-To run in production (this hasn't been tested yet):
-- npm run start
+To run in production:
+- node app.js
 
 ### Notes
 
