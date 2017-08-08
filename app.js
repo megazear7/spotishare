@@ -15,7 +15,6 @@ var path = require('path');
 
 var client_id = '4de0ba73539449b4a723fcd91ae34fe0'; // Your client id
 var client_secret = '256ec2be2180456e8f28ae51b757a5fa'; // Your secret
-var redirect_uri = 'http://localhost:3001/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -33,16 +32,20 @@ var generateRandomString = function(length) {
 };
 
 var appUrl;
+var redirect_uri;
 if (process.env.NODE_ENV === "development") {
   appUrl = "http://localhost:3000";
+  redirect_uri = 'http://localhost:3001/callback'; // Your redirect uri
 } else if (process.env.NODE_ENV === "production") {
   appUrl = ""; // AKA the app lives on the same url as this server.
+  redirect_uri = 'http://spotishare.herokuapp.com/callback'; // Your redirect uri
 }
 
 var stateKey = 'spotify_auth_state';
 
 var app = express();
 
+console.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, 'build')));

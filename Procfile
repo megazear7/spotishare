@@ -1,1 +1,1 @@
-web: NODE_ENV=production node app.js 80
+web: node app.js
