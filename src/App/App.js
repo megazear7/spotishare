@@ -51,9 +51,6 @@ class App extends Component {
       createCookie("spotify_refresh_token", refreshToken);
     }
     
-    console.log(accessToken);
-    console.log(userUri);
-    console.log(accessToken && ! userUri);
     if (accessToken && ! userUri) {
       $.ajax({
         url: 'https://api.spotify.com/v1/me',
