@@ -1,19 +1,15 @@
 # Spotishare
 
 To run in development:
-- npm start
+- npm run dev
 
 To deploy to production:
 - git push heroku master
 
+To run in production (this hasn't been tested yet):
+- npm run prod
+
 ### Notes
-
-- Playlist embed example
-```
-<iframe src="https://open.spotify.com/embed/user/megazear7/playlist/4zHC80VOQ1McuqkapT195D" width="300" height="380" frameBorder="0" allowTransparency="true"></iframe>
-```
-
----
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
