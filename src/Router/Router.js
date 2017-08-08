@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Sidebar, Segment, Menu, Icon } from 'semantic-ui-react'
-import { desktop, tablet, phone } from '../Util/breakpoints.js';
 import './Router.css';
 import App from '../App/App';
 
@@ -13,7 +12,7 @@ const RoutedApp  = ({ match }) => (
 
 // For clarity I have followed the same convention. This wraps the App with no
 // station name.
-const UnroutedApp  = ({ }) => (
+const UnroutedApp  = () => (
   <App />
 );
 
@@ -23,18 +22,6 @@ class Routes extends Component {
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.closeSidebar = this.closeSidebar.bind(this);
-
-    desktop(function() {
-      console.log("desktop");
-    });
-
-    tablet(function() {
-      console.log("tablet");
-    });
-
-    phone(function() {
-      console.log("phone");
-    });
 
     this.state = { visible: false }
   }
