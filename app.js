@@ -159,5 +159,5 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-console.log('Listening on ' + process.argv[2]);
-app.listen(process.argv[2]);
+var port = process.env.PORT || 3000;
+app.listen(port);
