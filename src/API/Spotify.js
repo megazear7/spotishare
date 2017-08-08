@@ -1,4 +1,4 @@
-import { getAccessToken, getRefreshToken, createCookie, apiUrl, deleteCookie } from './utils.js';
+import { getAccessToken, getRefreshToken, createCookie, apiUrl, deleteCookie } from '../Util/utils.js';
 import $ from "jquery";
 
 var SpotAPI = {

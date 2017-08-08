@@ -19,11 +19,6 @@ a.icon {
   font-size: 30px;
 }
 
-.sidebar-opener {
-  position: fixed;
-  top: 42px;
-}
-
 body:before {
   content: "phone";
   display: none; /* Prevent from displaying. */

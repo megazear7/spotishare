@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getCookie, apiUrl } from '../utils.js';
-import SpotAPI from '../SpotAPI.js';
+import { getCookie, apiUrl } from '../Util/utils.js';
+import SpotAPI from '../API/Spotify.js';
 import './App.css';
 import Station from '../Station/Station.js';
 import Home from '../Home/Home.js';

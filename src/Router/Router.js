@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Sidebar, Segment, Menu, Icon } from 'semantic-ui-react'
-import { desktop, tablet, phone } from './breakpoints.js';
-import App from './App/App';
+import { desktop, tablet, phone } from '../Util/breakpoints.js';
+import './Router.css';
+import App from '../App/App';
 
 
 // This merely wraps the App component with the station name.
