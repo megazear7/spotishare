@@ -39,7 +39,7 @@ class App extends Component {
 
     if (refreshToken) {
       $.get({
-        url: 'http://localhost:8888/refresh_token',
+        url: '/refresh_token',
         data: {
           refresh_token: refreshToken
         },
@@ -87,8 +87,6 @@ class App extends Component {
   }
 
   render() {
-    var thisUrl = window.location.protocol + "//" + window.location.host;
-
     return (
       <div className="app">
         <div className="header">
@@ -101,7 +99,7 @@ class App extends Component {
                     width="250" height="56" scrolling="no" frameBorder="0"  allowTransparency="true" title="user"
                     style={{border: "none", overflow: "hidden"}}></iframe>}
           {! this.state.userUri &&
-            <a href={"http://localhost:8888/login"}>
+            <a href={"/login"}>
               Login with Spotify
             </a>}
         </div>
