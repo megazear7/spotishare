@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react'
 import logo from '../logo.svg';
 import { getCookie, apiUrl } from '../utils.js';
 import SpotAPI from '../SpotAPI.js';
@@ -55,6 +56,7 @@ class App extends Component {
             </a>}
         </div>
         <div className="playing">
+          <Button>Click Me</Button>
           {this.props.station && 
             <Station />}
           {! this.props.station && 
