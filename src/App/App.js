@@ -94,7 +94,7 @@ class App extends Component {
       <div className="app">
         <div className="header">
           <img src={logo} className="app-logo" alt="logo" />
-          <h2>Spotishare</h2>
+          <h2>Spotishare: {this.props.station}</h2>
         </div>
         <div className="user">
           {this.state.userUri &&
