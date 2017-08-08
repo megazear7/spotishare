@@ -4,7 +4,9 @@ import './Home.css';
 class Home extends Component {
   render() {
     return (
-      <div>Home Page. This is where users will create their own station</div>
+      <div className="home">
+        Home Page. This is where users will create their own station
+      </div>
     );
   }
 };
