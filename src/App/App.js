@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import { getCookie, apiUrl } from '../utils.js';
 import SpotAPI from '../SpotAPI.js';
 import './App.css';
@@ -41,7 +40,6 @@ class App extends Component {
     return (
       <div className="app">
         <div className="header">
-          <img src={logo} className="app-logo" alt="logo" />
           <h2>Spotishare: {this.props.station}</h2>
         </div>
         <div className="user">
@@ -59,9 +57,6 @@ class App extends Component {
             <Station />}
           {! this.props.station && 
             <Home />}
-        </div>
-        <div className="footer">
-          Spotishare version 0.1
         </div>
       </div>
     );

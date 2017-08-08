@@ -2,12 +2,11 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
       "header"
       "user"
-      "playing"
-      "footer";
+      "playing";
   min-height: 100%;
   text-align: center;
   margin: auto;
@@ -28,22 +27,14 @@
   padding: 10px;
 }
 
-.footer {
-  grid-area: footer;
-  background-color: grey;
-  padding: 10px;
-  color: white;
-}
-
 @media (min-width: 600px) {
   .app {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 3fr 3fr 1fr;
+    grid-template-rows: 1fr 3fr 3fr;
     grid-template-areas:
       "user    blank   blank"
       "header  header  header"
-      "playing playing playing"
-      "footer  footer  footer";
+      "playing playing playing";
   }
 }
 
@@ -51,11 +42,15 @@
   .app {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr;
     grid-template-areas:
       "user    header  blank"
-      "playing playing playing"
-      "footer  footer  footer";
+      "playing playing playing";
+  }
+
+  .user iframe {
+    position: relative;
+    left: 2em;
   }
 }
 
@@ -64,20 +59,9 @@
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr;
     grid-template-areas:
-      "user    header    blank"
-      "playing playing playing"
-      "footer  footer  footer";
+      "user    header  blank"
+      "playing playing playing";
   }
-}
-
-.app-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
