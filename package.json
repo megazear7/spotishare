@@ -10,6 +10,8 @@
     "react-scripts": "1.0.10"
   },
   "scripts": {
+    "dev" : "npm start & NODE_ENV=development node app.js 3001",
+    "prod" : "npm run build & NODE_ENV=development node app.js 80",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

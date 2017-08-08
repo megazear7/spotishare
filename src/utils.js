@@ -22,4 +22,13 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-export { createCookie, getCookie, findGetParameter };
+function apiUrl(path) {
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3001"+path
+  } else if (process.env.NODE_ENV === "production") {
+    return path;
+  }
+  return ;
+}
+
+export { createCookie, getCookie, findGetParameter, apiUrl };

@@ -15,7 +15,7 @@ var path = require('path');
 
 var client_id = '4de0ba73539449b4a723fcd91ae34fe0'; // Your client id
 var client_secret = '256ec2be2180456e8f28ae51b757a5fa'; // Your secret
-var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
+var redirect_uri = 'http://localhost:3001/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -32,11 +32,19 @@ var generateRandomString = function(length) {
   return text;
 };
 
+var appUrl;
+if (process.env.NODE_ENV === "development") {
+  appUrl = "http://localhost:3000";
+} else if (process.env.NODE_ENV === "production") {
+  appUrl = ""; // AKA the app lives on the same url as this server.
+}
+
 var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'build')))
+   .use(cookieParser());
 
 app.get('/login', function(req, res) {
 
@@ -65,7 +73,7 @@ app.get('/callback', function(req, res) {
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
-    res.redirect('/#' +
+    res.redirect(appUrl+'/#' +
       querystring.stringify({
         error: 'state_mismatch'
       }));
@@ -102,13 +110,13 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/?' +
+        res.redirect(appUrl+'/?' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
       } else {
-        res.redirect('/#' +
+        res.redirect(appUrl+'/#' +
           querystring.stringify({
             error: 'invalid_token'
           }));
@@ -141,12 +149,11 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-app.use(express.static(path.join(__dirname, 'build')));
+if (process.env.NODE_ENV === "production") {
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-console.log('Listening on 3000');
-app.listen(3000);
-
+console.log('Listening on ' + process.argv[2]);
+app.listen(process.argv[2]);

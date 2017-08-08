@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './App.css';
-import { createCookie, getCookie, findGetParameter } from '../utils.js';
+import { createCookie, getCookie, findGetParameter, apiUrl } from '../utils.js';
 import $ from "jquery";
 
 class App extends Component {
@@ -39,7 +39,7 @@ class App extends Component {
 
     if (refreshToken) {
       $.get({
-        url: '/refresh_token',
+        url: apiUrl('/refresh_token'),
         data: {
           refresh_token: refreshToken
         },
@@ -47,8 +47,13 @@ class App extends Component {
           console.log("Token refreshed");
         }
       });
+
+      createCookie("spotify_refresh_token", refreshToken);
     }
     
+    console.log(accessToken);
+    console.log(userUri);
+    console.log(accessToken && ! userUri);
     if (accessToken && ! userUri) {
       $.ajax({
         url: 'https://api.spotify.com/v1/me',
@@ -56,11 +61,12 @@ class App extends Component {
           'Authorization': 'Bearer ' + accessToken
         },
         success: function(response) {
-          console.log(response);
-          self.setState({spotify_user_uri: response.uri});
+          self.setState({userUri: response.uri});
           createCookie("spotify_user_uri", response.uri);
         },
       });
+
+      createCookie("spotify_access_token", accessToken);
     }
   }
   
@@ -99,7 +105,7 @@ class App extends Component {
                     width="250" height="56" scrolling="no" frameBorder="0"  allowTransparency="true" title="user"
                     style={{border: "none", overflow: "hidden"}}></iframe>}
           {! this.state.userUri &&
-            <a href={"/login"}>
+            <a href={apiUrl("/login")}>
               Login with Spotify
             </a>}
         </div>
