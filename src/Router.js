@@ -1,9 +1,6 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
 import App from './App/App';
 
 
@@ -18,21 +15,57 @@ const UnroutedApp  = ( ) => (
   <App />
 );
 
-const Routes = () => (
-  <Router>
-    <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/michals-music">Michals Music</Link></li>
-        <li><Link to="/alex">Alexs Music</Link></li>
-        <li><Link to="/chill-music">Chill Music</Link></li>
-        <li><Link to="/other-music">Other Music</Link></li>
-      </ul>
+class Routes extends Component {
+  constructor(props) {
+    super(props);
 
-      <Route path="/:id" component={RoutedApp}/>
-      <Route exact path="/" component={UnroutedApp}/>
-    </div>
-  </Router>
-);
+    this.toggleVisibility = this.toggleVisibility.bind(this);
+
+    this.state = { visible: false }
+  }
+
+  toggleVisibility(e) {
+    e.preventDefault();
+    this.setState({ visible: !this.state.visible });
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+            <Sidebar.Pushable as={Segment}>
+              <Sidebar as={Menu} animation='overlay' width='thin' visible={this.state.visible} icon='labeled' vertical inverted>
+                <Menu.Item name='close'>
+                  <Link to="#" onClick={this.toggleVisibility} className="icon">
+                    <Icon name='remove' link />
+                  </Link>
+                </Menu.Item>
+                <Menu.Item name='home'>
+                  <Link to="/" className="icon">
+                    <Icon name='home' link />
+                  </Link>
+                </Menu.Item>
+                <Menu.Item name='gamepad'>
+                  <Link to="/michals-music">Michals Music</Link>
+                </Menu.Item>
+                <Menu.Item name='camera'>
+                  <Link to="/alex">Alexs Music</Link>
+                </Menu.Item>
+              </Sidebar>
+              <Sidebar.Pusher>
+                <Segment basic>
+                  <Link to="#" onClick={this.toggleVisibility} className="icon">
+                    <Icon name='ellipsis vertical' link />
+                  </Link>
+                  <Route path="/:id" component={RoutedApp}/>
+                  <Route exact path="/" component={UnroutedApp}/>
+                </Segment>
+              </Sidebar.Pusher>
+            </Sidebar.Pushable>
+        </div>
+      </Router>
+    )
+  }
+};
 
 export default Routes
