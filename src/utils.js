@@ -54,4 +54,8 @@ function getRefreshToken() {
   return findHashParam("refresh_token") || getCookie("spotify_refresh_token");
 }
 
-export { createCookie, getCookie, findGetParam, apiUrl, getAccessToken, getRefreshToken, findHashParam };
+function deleteCookie( name ) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+export { createCookie, getCookie, findGetParam, apiUrl, getAccessToken, getRefreshToken, findHashParam, deleteCookie };

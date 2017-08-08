@@ -1,4 +1,4 @@
-import { getAccessToken, getRefreshToken, createCookie, apiUrl } from './utils.js';
+import { getAccessToken, getRefreshToken, createCookie, apiUrl, deleteCookie } from './utils.js';
 import $ from "jquery";
 
 var SpotAPI = {
@@ -35,6 +35,12 @@ var SpotAPI = {
           if (typeof callback === "function") {
             callback(response);
           }
+        },
+        error: function() {
+          deleteCookie("spotify_refresh_token");
+          deleteCookie("spotify_access_token");
+          deleteCookie("spotify_user_uri");
+          window.location.reload();
         }
       });
     
@@ -62,6 +68,12 @@ var SpotAPI = {
           window.location.hash = "";
           createCookie("spotify_user_uri", response.uri);
         },
+        error: function() {
+          deleteCookie("spotify_refresh_token");
+          deleteCookie("spotify_access_token");
+          deleteCookie("spotify_user_uri");
+          window.location.reload();
+        }
       });
 
       // This token may have came from the getParam, so always create it to make

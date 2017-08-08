@@ -24,9 +24,7 @@ class App extends Component {
     var self = this;
     var userUri = this.state.userUri;
 
-    SpotAPI.refreshToken(function() {
-      console.log("Token Refreshed");
-    });
+    SpotAPI.refreshToken();
     
     if (! userUri) {
       SpotAPI.login(function(response) {

@@ -134,6 +134,10 @@ app.get('/callback', function(req, res) {
 
 app.get('/refresh_token', function(req, res) {
 
+  if (process.env.NODE_ENV === "development") {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+  }
+
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
   var authOptions = {
