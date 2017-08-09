@@ -36,6 +36,6 @@ node app.js
 
 ## Develop
 
-Backend Server is created with [Express](https://expressjs.com/).
-Front end JS / user interface is created with [Create React App](https://github.com/facebookincubator/create-react-app).
-CSS / Visuals is implemented with [React Semantic-UI](https://react.semantic-ui.com).
+1. Backend server is created with [Express](https://expressjs.com/).
+2. Front end JS / user interface is created with [Create React App](https://github.com/facebookincubator/create-react-app).
+3. Markup / CSS uses [React Semantic-UI](https://react.semantic-ui.com).
