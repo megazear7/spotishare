@@ -1,6 +1,6 @@
 # Spotishare
 
-# Installation
+## Install
 
 ```
 git clone https://github.com/megazear7/spotishare.git
@@ -9,22 +9,28 @@ npm install
 npm run dev
 ```
 
-# Running
+## Run
 
-To run in development:
-- npm run dev
+### Development:
+```Bash
+npm run dev
+```
 
-To deploy to production:
-- npm run build
-- git add .
-- git commit -m "updated prod build"
-- git push heroku master
+### Production:
+> Note that I am trying to get a solution that doesn't require the build directory to be commited to the repo / doesn't require the `npm run build` step.
+
+```Bash
+npm run build
+git add .
+git commit -m "updated prod build"
+git push heroku master
+```
 
 To run in production:
 - node app.js
-= This automatically happens when pushing to heroku.
+- This automatically happens when pushing to heroku.
 
-# Developing
+## Develop
 
 Backend Server is created with [Express](https://expressjs.com/).
 Front end JS / user interface is created with [Create React App](https://github.com/facebookincubator/create-react-app).
