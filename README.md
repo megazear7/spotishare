@@ -17,7 +17,7 @@ npm run dev
 ```
 
 ### Production:
-> Note that I am trying to get a solution that doesn't require the build directory to be commited to the repo / doesn't require the `npm run build` step.
+> Note that I am trying to get a solution that only requires the `git push heroku master` step.
 
 ```Bash
 npm run build
