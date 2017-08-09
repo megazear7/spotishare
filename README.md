@@ -27,8 +27,12 @@ git push heroku master
 ```
 
 To run in production:
-- node app.js
-- This automatically happens when pushing to heroku.
+
+> This automatically happens when pushing to heroku.
+
+```Bash
+node app.js
+```
 
 ## Develop
 
